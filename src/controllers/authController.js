@@ -4,15 +4,17 @@ export const getSignup = (req, res) => res.render('signup', { title: 'Signup' })
 export const getLogin = (req, res) => res.render('login', { title: 'Login' });
 
 export const postSignup = async (req, res) => {
-    const { username, password, role } = req.body;
+    const { username, email, password, role } = req.body; // Added email
     try {
-        const userExists = await User.findOne({ username });
+        
+        const userExists = await User.findOne({ $or: [{ username }, { email }] });
         if (userExists) {
-            req.flash('error_msg', 'Username already exists');
+            req.flash('error_msg', 'Username or Email already exists');
             return res.redirect('/signup');
         }
-        // NOTE: For this assignment, we allow selecting role in the form.
-        await User.create({ username, password, role });
+
+        await User.create({ username, email, password, role }); 
+        
         req.flash('success_msg', 'Registration successful! You can now log in.');
         res.redirect('/login');
     } catch (error) {
@@ -21,7 +23,6 @@ export const postSignup = async (req, res) => {
         res.redirect('/signup');
     }
 };
-
 export const postLogin = async (req, res) => {
     const { username, password } = req.body;
     try {
