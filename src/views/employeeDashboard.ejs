@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-primary p-3 mb-4">
+        <div class="container">
+            <span class="navbar-brand">Leave System</span>
+            <span class="text-white">
+                Welcome, 
+                <% if (user) { %> 
+                    <%= user.username %> 
+                <% } else { %> 
+                    User 
+                <% } %>
+            </span>
+            <a href="/logout" class="btn btn-sm btn-light">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <% if (success_msg && success_msg.length > 0) { %>
+            <div class="alert alert-success"><%= success_msg %></div>
+        <% } %>
+        
+        <% if (error_msg && error_msg.length > 0) { %>
+            <div class="alert alert-danger"><%= error_msg %></div>
+        <% } %>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3 mb-4">
+                    <h5 class="card-title mb-3">Apply for Leave</h5>
+                    <form action="/apply-leave" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="startDate" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="endDate" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reason</label>
+                            <textarea name="reason" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Apply Request</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card shadow-sm p-3">
+                    <h5 class="card-title mb-3">My Leave History</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Dates</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (leaves && leaves.length > 0) { %>
+                                    <% leaves.forEach(function(leave) { %>
+                                        <tr>
+                                            <td>
+                                                <%= new Date(leave.startDate).toLocaleDateString() %> - 
+                                                <%= new Date(leave.endDate).toLocaleDateString() %>
+                                            </td>
+                                            <td><%= leave.reason %></td>
+                                            <td>
+                                                <% if (leave.status === 'Approved') { %>
+                                                    <span class="badge bg-success">Approved</span>
+                                                <% } else if (leave.status === 'Rejected') { %>
+                                                    <span class="badge bg-danger">Rejected</span>
+                                                <% } else { %>
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="3" class="text-center">No leave history found.</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

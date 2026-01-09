@@ -1,0 +1,40 @@
+/* General Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+body { background: #f4f6f8; color: #333; }
+
+/* Navbar */
+nav { background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: bold; }
+.nav-links a { color: white; text-decoration: none; margin-left: 20px; }
+.btn-logout { background: #e74c3c; padding: 5px 15px; border-radius: 4px; }
+
+/* Layout */
+.container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+.auth-card { background: white; max-width: 400px; margin: 50px auto; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.panel { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+/* Forms */
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-weight: 500; }
+input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+.form-row { display: flex; gap: 20px; }
+.form-row .form-group { flex: 1; }
+
+/* Buttons */
+.btn-primary { background: #3498db; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; width: 100%; }
+.btn-approve { background: #27ae60; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+.btn-reject { background: #c0392b; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+th { background: #f8f9fa; }
+
+/* Alerts & Status */
+.alert { padding: 10px; margin-bottom: 15px; border-radius: 4px; }
+.alert.error { background: #f8d7da; color: #721c24; }
+.alert.success { background: #d4edda; color: #155724; }
+.status { padding: 4px 8px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; }
+.status.approved { background: #d4edda; color: #155724; }
+.status.rejected { background: #f8d7da; color: #721c24; }
+.status.pending { background: #fff3cd; color: #856404; }
